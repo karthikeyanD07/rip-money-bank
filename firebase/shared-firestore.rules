@@ -1,0 +1,7 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Central project contains only banks and ifsc_registry. Browser access is denied.
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "bankId": "P661",
+  "bankName": "RIP Money Bank",
+  "ifsc": "KART0M4N7CQ",
+  "apiVersion": "v1",
+  "environment": "TEST",
+  "status": "INACTIVE_UNTIL_X42_OPERATOR_ACTIVATES",
+  "requiredConfiguration": [
+    "PRIVATE_FIREBASE_PROJECT_ID",
+    "PRIVATE_SERVICE_ACCOUNT",
+    "STORAGE_BUCKET",
+    "SHARED_FIREBASE_PROJECT_ID",
+    "SHARED_SERVICE_ACCOUNT",
+    "X42_BASE_URL",
+    "X42_BANK_SECRET",
+    "PEER_SHARED_SECRETS_JSON.X42",
+    "PUBLIC_BANK_API_BASE_URL_FOR_X42_REGISTRATION"
+  ]
+}

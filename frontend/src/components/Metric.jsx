@@ -1,0 +1,2 @@
+import {Card,CardContent,Typography,Box} from '@mui/material';
+export default function Metric({label,value,detail,icon:Icon}) { return <Card className="metric-card"><CardContent><Box className="metric-top"><Typography variant="body2" color="text.secondary">{label}</Typography>{Icon&&<Box className="metric-icon"><Icon/></Box>}</Box><Typography variant="h4" className="metric-value">{value??'—'}</Typography>{detail&&<Typography variant="caption" color="text.secondary">{detail}</Typography>}</CardContent></Card>; }

@@ -1,0 +1,32 @@
+# Devil's-advocate and edge-case checklist
+
+- [x] Duplicate idempotency key with same payload returns prior result.
+- [x] Reusing idempotency key with altered payload is rejected.
+- [x] Receiver credit replay does not create a second ledger credit.
+- [x] Altered replay under the same transferId is rejected.
+- [x] Bank-to-X42 signature fails for wrong secret or expired timestamp.
+- [x] X42-to-bank signature is verified by the receiving bank.
+- [x] X42 nonce replay is rejected.
+- [x] Timed-out/unknown interbank call keeps funds reserved.
+- [x] Releasing a hold cannot increase posted balance.
+- [x] Unsafe integer and negative/zero amount rejected.
+- [x] Inactive destination bank is not routable.
+- [ ] Concurrent double-spend and simultaneous idempotency calls against Firestore Emulator.
+- [x] Receiver credits once; sender reconciles X42 SUCCESS and finalizes debit exactly once (mocked HTTP/in-memory test).
+- [x] X42 definitive failure releases the source hold through the sender reconciliation service (existing service test).
+- [ ] Peer status unavailable for hours; funds remain reserved and reconciliation is observable.
+- [ ] Source and destination account are the same account.
+- [ ] Beneficiary account number is ambiguous.
+- [ ] Daily limit boundary at exactly limit and one paise above.
+- [ ] IST midnight boundary and daylight/time-zone regression.
+- [ ] Expired session, revoked session, missing CSRF and CSRF mismatch.
+- [ ] Admin role removed during session lifetime.
+- [ ] KYC approval retried after commit but before response.
+- [ ] Opening credit cannot be issued twice or changed by customer request.
+- [ ] SMTP sends successfully but worker crashes before marking SENT (document at-least-once semantics).
+- [ ] Stale PROCESSING outbox events recover after worker restart.
+- [ ] Peer secret rotation and old-key overlap are tested.
+
+- [x] Internal loan disbursement and repayments update the bank-local account and ledger atomically.
+- [x] Loan repayment idempotency prevents duplicate debit.
+- [ ] Real Firebase transaction contention and multi-process race tests remain pending.

@@ -1,4 +1,37 @@
+.env
+secrets/
 node_modules/
-dist/
+.firebase/
+*.log
+coverage/
+.DS_Store
+
+# Firebase emulator and debug artifacts
+firebase-debug.log
+ui-debug.log
+firestore-debug.log
+emulator-data/
+.env.local
+.env.*.local
+
+central-switch/.env
+central-switch/secrets/
+frontend/dist/
+frontend/.vite/
+
+.patch-backups/
+
+# Local environment and credentials
 .env*
 !.env.example
+**/secrets/
+**/*service-account*.json
+**/*firebase-adminsdk*.json
+**/*.pem
+**/*.p12
+**/*.key
+
+# Temporary source backups
+*.before-transaction-privacy-fix
+*.bak
+*.backup

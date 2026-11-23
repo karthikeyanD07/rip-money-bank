@@ -1,0 +1,2 @@
+import {Box,Typography} from '@mui/material';
+export default function Page({eyebrow,title,description,actions,children}) { return <Box className="page-wrap"><Box className="page-heading"><Box><Typography className="eyebrow">{eyebrow}</Typography><Typography variant="h4" className="page-title">{title}</Typography>{description&&<Typography color="text.secondary" sx={{mt:1}}>{description}</Typography>}</Box>{actions}</Box>{children}</Box>; }

@@ -1,0 +1,18 @@
+import {NavLink,Outlet,useNavigate} from 'react-router-dom';
+import {useAuth} from '../app/AuthContext';
+import {useState} from 'react';
+import {AppBar,Avatar,Box,Drawer,IconButton,List,ListItemButton,ListItemIcon,ListItemText,Toolbar,Typography,Button} from '@mui/material';
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
+import SwapHorizRoundedIcon from '@mui/icons-material/SwapHorizRounded';
+import ReceiptLongRoundedIcon from '@mui/icons-material/ReceiptLongRounded';
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import VerifiedUserRoundedIcon from '@mui/icons-material/VerifiedUserRounded';
+import CreditScoreRoundedIcon from '@mui/icons-material/CreditScoreRounded';
+import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+const customerLinks=[['Overview','/customer',DashboardRoundedIcon],['Accounts','/customer/accounts',AccountBalanceWalletRoundedIcon],['Transfers','/customer/transfers',SwapHorizRoundedIcon],['Beneficiaries','/customer/beneficiaries',PeopleAltRoundedIcon],['Activity','/customer/activity',ReceiptLongRoundedIcon],['Loans','/customer/loans',CreditScoreRoundedIcon],['Verification','/customer/verification',VerifiedUserRoundedIcon]];
+const adminLinks=[['Overview','/admin',DashboardRoundedIcon],['Bank profile','/admin/settings',AccountBalanceWalletRoundedIcon],['Customers','/admin/customers',PeopleAltRoundedIcon],['Accounts','/admin/accounts',AccountBalanceWalletRoundedIcon],['KYC review','/admin/kyc',VerifiedUserRoundedIcon],['Transactions','/admin/transactions',ReceiptLongRoundedIcon],['Loans','/admin/loans',CreditScoreRoundedIcon],['Audit trail','/admin/audit',HistoryRoundedIcon]];
+export default function Shell({admin=false}) { const {user,logout}=useAuth(); const navigate=useNavigate(); const links=admin?adminLinks:customerLinks; const [mobileOpen,setMobileOpen]=useState(false); const drawer=<Box className="sidebar"><Box className="brand"><span className="brand-mark">R</span><Box><Typography fontWeight={800}>RIP MONEY</Typography><Typography variant="caption" color="text.secondary">PRIVATE BANKING</Typography></Box></Box><Box className="nav-caption">{admin?'BANK OPERATIONS':'YOUR BANK'}</Box><List>{links.map(([label,to,Icon])=><ListItemButton key={to} component={NavLink} to={to} end={to==='/customer'||to==='/admin'} onClick={()=>setMobileOpen(false)} className="nav-link"><ListItemIcon><Icon/></ListItemIcon><ListItemText primary={label}/></ListItemButton>)}</List><Box className="sidebar-bottom"><Typography variant="caption" color="text.secondary">RIP Money Bank · P661</Typography><Typography variant="caption" color="text.secondary">Development environment</Typography></Box></Box>;
+ return <Box className="app-frame"><AppBar position="fixed" elevation={0} className="topbar"><Toolbar><IconButton className="mobile-menu" onClick={()=>setMobileOpen(true)}>☰</IconButton><Typography className="mobile-title" fontWeight={800}>RIP MONEY BANK</Typography><Box sx={{flex:1}}/><Typography variant="body2" className="user-label">{user?.role==='CUSTOMER'?'Customer':'Bank administrator'}</Typography><Avatar sx={{width:34,height:34,bgcolor:'#c6a76a',color:'#142033'}}>{(user?.uid||'U').slice(0,1).toUpperCase()}</Avatar><Button color="inherit" startIcon={<LogoutRoundedIcon/>} onClick={async()=>{await logout();navigate('/login');}}>Sign out</Button></Toolbar></AppBar><Box component="nav" className="desktop-drawer">{drawer}</Box><Drawer open={mobileOpen} onClose={()=>setMobileOpen(false)}>{drawer}</Drawer><Box component="main" className="main-content"><Outlet/></Box></Box>;
+}

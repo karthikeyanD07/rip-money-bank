@@ -1,0 +1,13 @@
+{
+  "banks": [
+    {
+      "bankId": "P661",
+      "bankName": "RIP Money Bank",
+      "ifsc": "KART0M4N7CQ",
+      "address": null,
+      "apiBaseUrl": null,
+      "apiVersion": "v1",
+      "status": "INACTIVE"
+    }
+  ]
+}

@@ -1,24 +1,42 @@
 {
-  "name": "x42-bank-page",
-  "version": "1.0.0",
+  "name": "firebase-bank-engine",
+  "version": "2.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24.12.0"
+  },
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "test": "node --test",
+    "check": "node scripts/check-syntax.js",
+    "provision-admin": "node scripts/provision-admin.js",
+    "emulators": "firebase emulators:start --only auth,firestore,storage --project demo-rip-p661",
+    "verify": "npm run check && npm test",
+    "emulators:shared": "firebase emulators:start --only firestore --config firebase.shared.json --project demo-x42-shared",
+    "start": "node scripts/start-api.js",
+    "seed:directory": "node scripts/seed-directory.js",
+    "outbox:process": "node scripts/process-outbox.js",
+    "reconcile:pending": "node scripts/reconcile-pending.js",
+    "seed:platform": "node scripts/seed-platform.js",
+    "verify:seed": "node scripts/verify-platform-seed.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@fontsource-variable/inter": "^5.2.8",
-    "@mui/material": "^7.3.8",
-    "lucide-react": "^0.577.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "argon2": "^0.45.2",
+    "dotenv": "^16.4.7",
+    "firebase-admin": "^14.5.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.1.4",
-    "vite": "^7.3.1"
+    "firebase-tools": "^15.37.0"
+  },
+  "peerDependencies": {
+    "nodemailer": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "argon2": {
+      "optional": true
+    },
+    "nodemailer": {
+      "optional": true
+    }
   }
 }
