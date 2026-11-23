@@ -1,0 +1,1 @@
+# rip-money-bank
