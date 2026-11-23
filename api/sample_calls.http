@@ -1,0 +1,69 @@
+@base = http://127.0.0.1:3000
+
+### Register customer and KYC application
+POST {{base}}/api/v1/auth/register
+Content-Type: application/json
+
+{"fullName":"Demo Customer","email":"demo@example.test","password":"ChangeThisPassword123!","documentPaths":[]}
+
+### Login
+POST {{base}}/api/v1/auth/login
+Content-Type: application/json
+
+{"email":"demo@example.test","password":"ChangeThisPassword123!"}
+
+### Authenticated identity (copy bank_session cookie and csrfToken from login)
+GET {{base}}/api/v1/auth/me
+Cookie: bank_session={{session}}
+
+### Own accounts
+GET {{base}}/api/v1/accounts
+Cookie: bank_session={{session}}
+
+### Available balance
+GET {{base}}/api/v1/x42/balance/{{accountId}}
+Cookie: bank_session={{session}}
+
+### Internal transfer
+POST {{base}}/api/v1/transfers/internal
+Cookie: bank_session={{session}}
+X-CSRF-Token: {{csrf}}
+Idempotency-Key: demo-transfer-001
+Content-Type: application/json
+
+{"fromAccountId":"{{accountId}}","toAccountNumber":"{{beneficiaryAccountNumber}}","amountMinor":25000}
+
+### Interbank transfer
+POST {{base}}/api/v1/transfers/interbank
+Cookie: bank_session={{session}}
+X-CSRF-Token: {{csrf}}
+Idempotency-Key: demo-interbank-001
+Content-Type: application/json
+
+{"fromAccountId":"{{accountId}}","destinationIfsc":"AKSH0R4N8WX","destinationAccountNumber":"{{destinationAccountNumber}}","amountMinor":25000,"currency":"INR"}
+
+
+### Validate interbank destination through X42 (masked account name only)
+POST {{base}}/api/v1/transfers/interbank/validate
+Cookie: bank_session={{session}}
+X-CSRF-Token: {{csrf}}
+Content-Type: application/json
+
+{"destinationIfsc":"DEST0123456","destinationAccountNumber":"DEST0001"}
+
+### Apply for an internal bank loan (amountMinor is integer paise)
+POST {{base}}/api/v1/loans
+Cookie: bank_session={{session}}
+X-CSRF-Token: {{csrf}}
+Content-Type: application/json
+
+{"accountId":"{{accountId}}","requestedMinor":500000,"termMonths":12,"purpose":"Education"}
+
+### Repay an internal bank loan
+POST {{base}}/api/v1/loans/{{loanId}}/repay
+Cookie: bank_session={{session}}
+X-CSRF-Token: {{csrf}}
+Idempotency-Key: loan-repay-demo-001
+Content-Type: application/json
+
+{"fromAccountId":"{{accountId}}","amountMinor":25000}

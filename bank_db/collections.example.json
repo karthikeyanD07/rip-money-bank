@@ -1,0 +1,17 @@
+{
+  "users": {"uid":"<server-generated-uid>","bankId":"P629","fullName":"Demo Customer","email":"demo@example.test","passwordHash":"<ARGON2ID_HASH>","role":"CUSTOMER","status":"ACTIVE"},
+  "sessions": {"uid":"<uid>","csrfHash":"<sha256>","expiresAt":"<timestamp>","revokedAt":null},
+  "kyc_requests": {"uid":"<uid>","documentPaths":[],"openingDepositMinor":100000,"status":"PENDING","reviewedBy":null},
+  "accounts": {"accountId":"<document-id>","customerUid":"<uid>","accountNumber":"P629000000000001","currency":"INR","status":"ACTIVE","postedBalanceMinor":100000,"heldMinor":0},
+  "beneficiaries": {"uid":"<uid>","beneficiaryBankId":"P658","beneficiaryIfsc":"AKSH0R4N8WX","beneficiaryAccountNumber":"<number>"},
+  "transfers": {"transferId":"<stable-id>","type":"INTERNAL|INTERBANK","sourceAccountId":"<account-id>","amountMinor":25000,"currency":"INR","status":"PENDING|COMPLETED|REJECTED","idempotencyKey":"<key>"},
+  "ledger_entries": {"transferId":"<transfer-id>","accountId":"<account-id>","direction":"DEBIT|CREDIT","amountMinor":25000,"postedAt":"<timestamp>"},
+  "transfer_limits": {"perTransferMinor":500000,"dailyMinor":2000000,"updatedBy":"<admin-uid>"},
+  "daily_usage": {"accountId":"<account-id>","dateIST":"YYYY-MM-DD","usedMinor":25000},
+  "idempotency_keys": {"requestHash":"<sha256>","transferId":"<transfer-id>","uid":"<uid>"},
+  "interbank_inbox": {"sourceBankId":"P629","destinationAccountId":"<account-id>","amountMinor":25000,"status":"CREDITED"},
+  "loans": {"uid":"<uid>","accountId":"<account-id>","requestedMinor":100000,"status":"PENDING"},
+  "portfolios": {"uid":"<uid>","accountIds":[],"loanIds":[]},
+  "notification_outbox": {"type":"KYC_DECISION","uid":"<uid>","email":"<email>","status":"PENDING"},
+  "audit_logs": {"logid":"<document-id>","description":"Admin action"}
+}
